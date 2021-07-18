@@ -1,7 +1,7 @@
 # tf-static-site-with-cdn
 
 ### What is this?
-This is a Terraform files which will provision followings:
+This is a Terraform configuration which will provision followings:
 1. GCS bucket for hosting static website
 2. CDN for that GCS bucket
 3. A Load Balancer which will route the request to the GCS bucket
