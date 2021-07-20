@@ -7,15 +7,6 @@ resource "google_storage_bucket" "bucket-static-site" {
         main_page_suffix    = var.MAIN_PAGE
         not_found_page      = var.NOT_FOUND_PAGE
     }
-
-    provisioner "local-exec" {
-        environment = {
-            PATH_TO_STATIC_SITE = var.PATH_TO_STATIC_SITE
-            BUCKET_NAME         = self.name             
-        }
-
-        command = "gsutil cp -r $PATH_TO_STATIC_SITE/* gs://$BUCKET_NAME && gsutil iam ch allUsers:objectViewer gs://$BUCKET_NAME"
-    }
 }
 
 

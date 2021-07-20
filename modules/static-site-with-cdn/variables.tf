@@ -13,11 +13,6 @@ variable "NOT_FOUND_PAGE" {
   description = "A file that will be returned when user get error 404 Not Found"
 }
 
-variable "PATH_TO_STATIC_SITE" {
-  type = string
-  description = "The path to the static site"
-}
-
 variable "SSL_ON" {
   type = bool
   description = "Should SSL be enabled?"

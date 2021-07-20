@@ -11,6 +11,5 @@ module "static-site-with-cdn" {
     SITE_URL = "yesa-static-site.yesa.id"
     MAIN_PAGE = "index.html"
     NOT_FOUND_PAGE = "404.html"
-    PATH_TO_STATIC_SITE = "./static-site"
     SSL_ON = true
 }
