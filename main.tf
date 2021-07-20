@@ -8,8 +8,9 @@ module "static-site-with-cdn" {
     source = "./modules/static-site-with-cdn"
 
     ## NOTE: You can customize the variables here
-    SITE_URL = "static2.yesa.id"
+    SITE_URL = "yesa-static-site.yesa.id"
     MAIN_PAGE = "index.html"
     NOT_FOUND_PAGE = "404.html"
     PATH_TO_STATIC_SITE = "./static-site"
+    SSL_ON = true
 }

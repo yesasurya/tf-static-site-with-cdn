@@ -32,14 +32,32 @@ resource "google_compute_url_map" "load-balancer-static-site" {
 }
 
 
-resource "google_compute_target_http_proxy" "proxy-for-load-balancer-static-site" {
-    name        = "proxy-for-load-balancer-static-site"
+resource "google_compute_target_http_proxy" "http-proxy-for-load-balancer-static-site" {
+    count       = var.SSL_ON ? 0 : 1
+    name        = "http-proxy-for-load-balancer-static-site"
     url_map     = google_compute_url_map.load-balancer-static-site.id
+}
+
+
+resource "google_compute_managed_ssl_certificate" "ssl-certificate" {
+    count       = var.SSL_ON ? 1 : 0
+    name        = "ssl-certificate"
+    managed {
+        domains = [var.SITE_URL]
+    }
+}
+
+
+resource "google_compute_target_https_proxy" "https-proxy-for-load-balancer-static-site" {
+    count               = var.SSL_ON ? 1 : 0
+    name                = "https-proxy-for-load-balancer-static-site"
+    url_map             = google_compute_url_map.load-balancer-static-site.id
+    ssl_certificates    = [google_compute_managed_ssl_certificate.ssl-certificate[0].id]
 }
 
 
 resource "google_compute_global_forwarding_rule" "global-forwarding-rule-for-load-balancer" {
     name       = "global-forwarding-rule-for-load-balancer"
-    target     = google_compute_target_http_proxy.proxy-for-load-balancer-static-site.id
-    port_range = "80"
+    target     = var.SSL_ON ? google_compute_target_https_proxy.https-proxy-for-load-balancer-static-site[0].id : google_compute_target_http_proxy.http-proxy-for-load-balancer-static-site[0].id
+    port_range = var.SSL_ON ? "443" : "80"
 }

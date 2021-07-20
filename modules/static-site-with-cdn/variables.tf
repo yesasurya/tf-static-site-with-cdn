@@ -17,3 +17,8 @@ variable "PATH_TO_STATIC_SITE" {
   type = string
   description = "The path to the static site"
 }
+
+variable "SSL_ON" {
+  type = bool
+  description = "Should SSL be enabled?"
+}
