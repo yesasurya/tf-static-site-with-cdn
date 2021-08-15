@@ -12,5 +12,5 @@ module "static-site-with-cdn" {
     MAIN_PAGE = "index.html"
     NOT_FOUND_PAGE = "404.html"
     PATH_TO_STATIC_SITE = "./static-site"
-    SSL_ON = true
+    SSL_ON = false
 }
